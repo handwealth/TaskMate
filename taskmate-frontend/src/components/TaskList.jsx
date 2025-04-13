@@ -18,7 +18,8 @@ const TaskList = ({ tasks, onEdit, onDelete, onToggleComplete }) => {
   });
 
   // Get unique categories from tasks
-  const categories = [...new Set(tasks.map((task) => task.category))];
+  const categories = [...new Set(tasks.map((task) => task.category).filter(Boolean))];
+
 
   return (
     <div className="mt-4 sm:mt-6">

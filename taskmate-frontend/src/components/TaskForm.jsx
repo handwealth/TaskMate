@@ -11,7 +11,12 @@ const TaskForm = ({ fetchTasks, editTask, clearEdit }) => {
 
   useEffect(() => {
     if (editTask) {
-      setTask(editTask);
+      setTask({
+        ...editTask,
+        dueDate: editTask.dueDate
+          ? new Date(editTask.dueDate).toISOString().split("T")[0]
+          : "",
+      });
     }
   }, [editTask]);
 
@@ -40,9 +45,7 @@ const TaskForm = ({ fetchTasks, editTask, clearEdit }) => {
       onSubmit={handleSubmit}
       className="bg-white p-4 sm:p-6 rounded-xl shadow-md flex flex-col gap-3"
     >
-      <h2 className="text-xl font-bold">
-        {editTask ? "Edit Task" : "Add New Task"}
-      </h2>
+      <h2 className="text-xl font-bold">{editTask ? "Edit Task" : "Add New Task"}</h2>
       <input
         type="text"
         name="title"
@@ -50,7 +53,7 @@ const TaskForm = ({ fetchTasks, editTask, clearEdit }) => {
         onChange={handleChange}
         placeholder="Title"
         required
-        className="border p-2 rounded "
+        className="border p-2 rounded"
       />
       <textarea
         name="description"
@@ -59,12 +62,13 @@ const TaskForm = ({ fetchTasks, editTask, clearEdit }) => {
         placeholder="Description"
         required
         className="border p-2 rounded"
-      ></textarea>
+      />
       <input
         type="date"
         name="dueDate"
         value={task.dueDate}
         onChange={handleChange}
+        required
         className="border p-2 rounded"
       />
       <input
@@ -73,12 +77,13 @@ const TaskForm = ({ fetchTasks, editTask, clearEdit }) => {
         value={task.category}
         onChange={handleChange}
         placeholder="Category"
+        required
         className="border p-2 rounded"
       />
       <div className="flex flex-col sm:flex-row gap-2">
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full sm:w-auto "
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full sm:w-auto"
         >
           {editTask ? "Update" : "Add Task"}
         </button>

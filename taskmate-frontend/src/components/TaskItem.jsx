@@ -29,9 +29,10 @@ const TaskItem = ({ task, onEdit, onDelete, onToggleComplete }) => {
       <p className="text-sm text-gray-600">{description}</p>
       
       <div className="text-sm text-gray-500 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1">
-        <p>Due: {new Date(dueDate).toLocaleDateString()}</p>
-        <p className="font-medium text-blue-600">{category}</p>
+        <p>Due: {dueDate ? new Date(dueDate).toLocaleDateString() : 'No due date'}</p>  {/* Handle invalid date */}
+        <p className="font-medium text-blue-600">{category || 'No category'}</p>  {/* Handle empty category */}
       </div>
+
       
       <div className="flex flex-col sm:flex-row gap-2 mt-2">
         <button

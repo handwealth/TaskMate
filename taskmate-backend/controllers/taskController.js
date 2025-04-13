@@ -3,6 +3,7 @@ const Task = require('../models/Task');
 // CREATE
 exports.createTask = async (req, res) => {
   try {
+    console.log('Received task data:', req.body); 
     const task = new Task(req.body);
     await task.save();
     res.status(201).json(task);
@@ -24,6 +25,7 @@ exports.getTasks = async (req, res) => {
 // UPDATE
 exports.updateTask = async (req, res) => {
   try {
+    console.log('Updating task data:', req.body);
     const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(task);
   } catch (err) {
